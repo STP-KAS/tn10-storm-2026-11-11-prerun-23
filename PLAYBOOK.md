@@ -61,11 +61,24 @@ One rehearsal ran on the desk against the fake node (no network for the sends), 
 
 ## Status after the live run
 
-AFTER_PLACEHOLDER
+Read on 2026-11-13 between 16:57Z and 17:10Z. Not a gate.
+
+- **The run went through RETURN, no repair, no fault we know of.** `PRE-RUN-OPEN` on origin 16:08:46Z, `MINI-ARMED` 16:09:12Z; the desk runner (started 16:10:04Z; `BUDGET_CHECK` key 0 131,982 usable, 43 planned family minutes, projected end 99,302) ran BASE, HOLD-1 (ready held at 8, chains 8 / 30 / 8), HOLD-2 (30 chains at R = 15, 15 at R = 15, 30 at R = 30), HOLD-3 (8 chains at 2,000, at 460, then the lane off), the drain, HOLD-4 and RETURN; the connectivity guard did not fire. `FAMILY_END` 17:18:31Z from the run start; `FAMILY_END_CHECK` ok before the lane and at RETURN's close. `RUN_STOP return-closed` 16:51:24Z; TIMELINE, MEMPOOL and METHOD on origin 16:57:01–07Z; `RUN end` 16:57:07Z. The desk runner and its helpers exited by themselves. The private TN10 kaspad (2.1.0) was not stopped. No devnet, `KaspaPublicNode` or miner was started; `serve.mjs` and its keeper were not touched.
+- **Chain count against ready count** (all at 460 unless named): templates under 400,000 mass were 14 / 7 / 7 / 7 percent of samples with R = 8 (8, 30, 8, 8 chains), 30 and 25 percent with R = 15 (30 and 15 chains), and 88 percent with R = 30 (median 308,737); 7 percent with R = 8 at 2,000. Landed a minute: about 235 at R = 8 (any chain count or rate), about 408 at R = 15, about 530 at R = 30. Tiers (floor / r150 / r300 / r450, percent of BASE): R = 8 85–90 / 85–93 / 95–102 / 100–110; R = 15 78–81 / 79–81 / 91–94 / 102–104; R = 30 11 / 19 / 51 / 82. Per segment: [logs/ANALYSIS.md](logs/ANALYSIS.md).
+- **The 2,000 against 460 repeat** (8 chains, R = 8): 233–244 landed a minute at 2,000, 231–240 at 460; 5.16 against 1.22–1.24 tKAS a landed transaction.
+- **Lane-off baselines at both ends:** BASE 100 percent by definition; N0-end 105–107, HOLD-4 109–114, RETURN 109–112 percent.
+- Our heavy lane: 7,577 accepted, 0 rejected, 0 lost, 12,136.47 tKAS fees, 284.14 tKAS parked on our sink key (not swept), 0 pending.
+- Inclusion (counter totals): every OK hop (floor 9,269, r150 10,208, r300 11,580, r450 12,351) and every lane transaction (7,577) landed.
+- The outside heavy fee-100 stream was essentially absent.
+- Mini: every step published and read in full; 128 of 136 cohort cells match the desk (16:38 and 16:39, every tier, the desk 3–4 higher, during a burst of chain reorganisations). Its TN10 kaspad was not wiped or restarted.
+- Bot: `NO SEND no-free-node` for the pinned minute 16:46Z (on origin 17:47:03 Brussels, first try); nothing sent.
+- Keys after the run (read-only status): key 0 3,877 coins over 3 tKAS, 84,770 usable (abort line 18,000), 1,874 small coins; payment pile (key 16) 177 coins, 69,219 tKAS. Enough for another run without new funding.
+- Spend: lane 12,136.47, families 4,744.21, housekeeping a few tKAS: about 16,884 tKAS in fees, plus 284.14 parked. Funding moved in before the run from our own mining wallet: 200,000.
+- Results: [logs/LESSONS.md](logs/LESSONS.md), [logs/ANALYSIS.md](logs/ANALYSIS.md), [logs/duel.log](logs/duel.log), and the pre-run 23 block in [locks/LOCKED.md](locks/LOCKED.md).
 
 ### Public statement
 
-We run our own heavy lane on TN10 in this pre-run, with the operator's OK: 8, 15 or 30 chains at a fixed 460 sompi/gram for about 24 minutes, and 8 chains at 2,000 for 3 minutes. While it runs, other TN10 users' transactions paying up to about the lane's rate wait longer; we are sorry for that. This is our own testing on our own nodes; what we report is what we observed, not a claim about TN10 in general, and corrections are welcome.
+We run our own heavy lane on TN10 in this pre-run, with the operator's OK: 8, 15 or 30 chains at a fixed 460 sompi/gram for about 24 minutes, and 8 chains at 2,000 for 3 minutes. While it runs, other TN10 users' transactions paying up to about the lane's rate wait longer; we are sorry for that. In this run the lane ran 24 minutes: 21 at 460 with 8, 15 or 30 chains and 8, 15 or 30 of ours ready at most, and 3 at 2,000 with 8 chains. On our desk node other traffic landed about 3,070–3,300 a minute while 8 or 15 of ours were ready, against 3,099–3,293 with the lane off; with up to 30 of ours ready it fell to 2,685 and 2,802 in two minutes. Our own hops at 100, a stand-in for a low-fee user, kept 85–90 percent of their BASE pace with 8 of ours ready, 78–81 percent with 15, and 11 percent with 30. The node's fee estimate rose to about 560 at R = 30 and about 1,300 at 2,000, instead of about 100. This is our own testing on our own nodes; what we report is what we observed, not a claim about TN10 in general, and corrections are welcome.
 
 ## When something breaks
 

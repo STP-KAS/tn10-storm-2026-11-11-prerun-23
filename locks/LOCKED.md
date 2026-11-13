@@ -694,3 +694,11 @@ These lines are baked into this repo's own pastes. They come from pre-run 22's l
 ## Locked during pre-run 23
 
 When a fix works, append it here, one block per fix, in the form shown above: UTC time, what failed or worked, what was changed, why that change stays.
+
+```
+- 2026-11-13T16:57:07Z.
+- What worked: funding from our own mining wallet (200,000 tKAS) with the budget check passing by a wide margin; re-read before arming (both nodes synced, tip age under 1 s twice, 20 s apart); rehearsal p23-a (full path, stale family end replaced from the run start). Live: the ready cap held R while N changed (30 chains at R = 8 rotated over all 30); FAMILY_END from the run start, FAMILY_END_CHECK ok before the lane and at RETURN's close; lane-off baselines at both ends with families on. 7,577 lane transactions accepted, 0 rejected, 0 lost, 12,136.47 tKAS fees, 284.14 parked (not swept). Every OK family hop included (floor 9,269, r150 10,208, r300 11,580, r450 12,351). Mini 128 of 136. Bot NO SEND no-free-node on time.
+- What failed: nothing we know of. Not a fault, but worth knowing: R = 30 drove our floor families to 11 percent of BASE and the desk mempool to 636 entries; the budget check's 760 tKAS a family minute is below this run's pace (about 1,150-1,200).
+- What was changed: nothing during the run. The duel log was copied unchanged to logs/duel.log after the run.
+- Why that change stays, for the next repo: keep the ready cap (control/LANE-READY), FAMILY_END from the run start with both checks, the lane-off segment at the end, the pre-arm sync re-read, the connectivity guard and the cap guard. Raise the budget check's use rate to about 1,200 a minute. Avoid R = 30 unless that is the question. Funds after this run: key 0 84,770 usable, pile 69,219 tKAS, enough for another run.
+```
