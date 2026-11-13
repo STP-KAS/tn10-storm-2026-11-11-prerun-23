@@ -48,7 +48,16 @@ Not a gate. Read on 2026-11-13 between 15:17Z and 15:30Z. This is our own TN10 t
 
 ## Offline rehearsal, recorded before `PRE-RUN-OPEN`
 
-REHEARSAL_PLACEHOLDER
+One rehearsal ran on the desk against the fake node (no network for the sends), with 2-minute steps for BASE, each lane segment and RETURN (`STORM_LANE_MIN=2`, `STORM_RET_MIN=2`). The setup's end time was left stale (start plus 3 minutes) on purpose, to check the new rule that the families' end time comes from the run start.
+
+- `p23-a` (the full path, on the final files: the same files, by hash after line endings, as the live run and this repo's `tools/desk`), 2026-11-13 15:29:43Z to 16:01:27Z. Preflight passed (kept 1 and 5, 2 distinct kaspads); `BUDGET_CHECK` logged (key 0 131,982 usable, 32 planned family minutes in the short rehearsal, projected end 107,662); `FAMILY_END` 16:26:47Z from the run start (the stale 15:32:47Z was replaced), `FAMILY_END_CHECK ok=1` before the lane and again when RETURN closed, no `FAMILY_END_REACHED` and no families-not-attempting; genesis 16 of 16; `FEE_SPLIT` floor 100, r150 150, r300 300, r450 450; `LANE_PLAN` ran its segments in order with the ready cap as set (BASE N0; HOLD-1 N8 R8, N30 R8, N8 R8; HOLD-2 N30 R15, N15 R15, N30 R30; HOLD-3 N8 R8 at 2,000, N8 R8 at 460, N0 at the end, then drain). With N 30 and R 8 the lane rotated over all 30 chains. `HOLD-3` 15:51:22Z, pinned minute 15:55Z, `HOLD-4`, `RETURN` (every minute clean), `RUN_STOP reason=return-closed`; 4,713 lane submits OK, 0 rejected, 0 lost; no `ERROR` line; `RUNNER_EXIT 0`.
+- The fake node does not model block space or fee priority, so the numbers above say nothing about the network. They only show that the plan, the ready cap, the end-time rule and the steps run as written.
+
+**Re-read just before `PRE-RUN-OPEN`** (read-only, 2026-11-13 16:04Z to 16:08Z):
+
+- Both nodes, two readings 20 s apart. Desk: synced, 8 peers, tip age 0.1 s and 0.7 s, 163 DAA in 20 s. Mini: synced, 8 peers, tip age 0.4 s and 0.1 s, 174 DAA in 20 s.
+- `budget21.mjs` 16:07Z, 43 planned family minutes: synced, key 0 131,982 usable (5,617 coins over 3 tKAS), projected end 99,302 over 26,000: ok. Pile 185 coins, 81,653 tKAS.
+- The bot's free check, once, 16:04:43Z: kept 1 and 5 = 2 distinct kaspads; every other answering node is one of those two; no free node.
 
 ## Status after the live run
 
